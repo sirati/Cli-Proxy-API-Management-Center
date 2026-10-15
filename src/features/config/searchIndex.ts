@@ -45,6 +45,13 @@ export const CONFIG_FIELD_SEARCH_INDEX: ConfigFieldSearchEntry[] = [
     yamlKeys: ['routing', 'session-affinity-subagents'],
   },
   {
+    fieldId: 'routingClaudeWeeklyResetFirst',
+    sectionId: 'network',
+    labelKey: L('additions.routingClaudeWeeklyResetFirst.label'),
+    hintKey: L('additions.routingClaudeWeeklyResetFirst.hint'),
+    yamlKeys: ['routing', 'claude-weekly-reset-first'],
+  },
+  {
     fieldId: 'saveCooldownStatus',
     sectionId: 'network',
     labelKey: L('additions.saveCooldownStatus.label'),

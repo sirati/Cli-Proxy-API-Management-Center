@@ -1178,6 +1178,10 @@
           "label": "Subagent session affinity",
           "hint": "Enabled by default; only effective when session affinity is enabled. Subagents inherit their parent's credential to reuse caches. Disable to distribute subagents across the credential pool for greater concurrency."
         },
+        "routingClaudeWeeklyResetFirst": {
+          "label": "Claude: weekly reset first",
+          "hint": "Off by default. Claude requests go to the credential whose weekly quota window resets soonest, within the highest priority tier, so quota that would expire unused is spent first. Credentials without a running weekly window and other providers use the routing strategy. With session affinity, it decides where new sessions bind."
+        },
         "saveCooldownStatus": {
           "label": "Persist cooldown status",
           "hint": "Save per-credential cooldown status in .cds files beside auth files. Disabled by default; otherwise status is kept only in memory."

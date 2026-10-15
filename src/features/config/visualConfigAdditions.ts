@@ -17,6 +17,11 @@ export const ADDITION_FIELDS = [
     kind: 'boolean',
   },
   {
+    key: 'routingClaudeWeeklyResetFirst',
+    path: 'routing.claude-weekly-reset-first'.split('.'),
+    kind: 'boolean',
+  },
+  {
     key: 'saveCooldownStatus',
     path: 'routing.cooldown.save-cooldown-status'.split('.'),
     kind: 'boolean',

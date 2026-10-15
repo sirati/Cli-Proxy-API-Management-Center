@@ -129,6 +129,7 @@ export type VisualConfigValues = {
   discoveryAdvertiseManagement: boolean;
 
   routingSessionAffinitySubagents: boolean;
+  routingClaudeWeeklyResetFirst: boolean;
   saveCooldownStatus: boolean;
   transientErrorCooldownSeconds: string;
   videoResultAuthCacheTTL: string;
@@ -232,6 +233,7 @@ export const DEFAULT_VISUAL_VALUES: VisualConfigValues = {
   discoveryAdvertiseManagement: false,
 
   routingSessionAffinitySubagents: true,
+  routingClaudeWeeklyResetFirst: false,
   saveCooldownStatus: false,
   transientErrorCooldownSeconds: '',
   videoResultAuthCacheTTL: '',

@@ -165,6 +165,14 @@ export function SectionNetwork({
           }
         />
         <ToggleSetting
+          fieldId="routingClaudeWeeklyResetFirst"
+          label={t('config_management.visual.additions.routingClaudeWeeklyResetFirst.label')}
+          description={t('config_management.visual.additions.routingClaudeWeeklyResetFirst.hint')}
+          checked={values.routingClaudeWeeklyResetFirst}
+          disabled={disabled}
+          onChange={(routingClaudeWeeklyResetFirst) => onChange({ routingClaudeWeeklyResetFirst })}
+        />
+        <ToggleSetting
           fieldId="saveCooldownStatus"
           label={t('config_management.visual.additions.saveCooldownStatus.label')}
           description={t('config_management.visual.additions.saveCooldownStatus.hint')}

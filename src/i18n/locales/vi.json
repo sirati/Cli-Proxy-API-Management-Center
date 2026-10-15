@@ -1426,6 +1426,10 @@
           "label": "Session affinity cho subagent",
           "hint": "Mặc định bật; chỉ có hiệu lực khi session affinity được bật. Subagent kế thừa credential của cha để tái sử dụng cache. Tắt để phân bổ subagent trên toàn bộ pool credential nhằm tăng tính đồng thời."
         },
+        "routingClaudeWeeklyResetFirst": {
+          "label": "Claude: ưu tiên reset hằng tuần sớm nhất",
+          "hint": "Mặc định tắt. Yêu cầu Claude được gửi tới thông tin xác thực có cửa sổ hạn mức hằng tuần reset sớm nhất (trong tầng ưu tiên cao nhất còn dùng được), để dùng trước hạn mức sắp hết hạn. Thông tin xác thực chưa có cửa sổ tuần đang chạy và các nhà cung cấp khác dùng chiến lược định tuyến. Khi bật gắn phiên, quyết định phiên mới gắn vào đâu."
+        },
         "saveCooldownStatus": {
           "label": "Lưu trữ bền vững trạng thái cooldown",
           "hint": "Lưu trạng thái cooldown của từng credential vào các file .cds cạnh file xác thực. Mặc định tắt; nếu tắt trạng thái chỉ được giữ trong bộ nhớ."

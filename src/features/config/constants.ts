@@ -101,6 +101,7 @@ export const SECTION_VALIDATION_FIELDS: Record<VisualSectionId, readonly VisualC
  */
 export const FIELD_VALUE_KEYS: Record<string, readonly string[]> = {
   routingSessionAffinitySubagents: ['routingSessionAffinitySubagents'],
+  routingClaudeWeeklyResetFirst: ['routingClaudeWeeklyResetFirst'],
   saveCooldownStatus: ['saveCooldownStatus'],
   transientErrorCooldownSeconds: ['transientErrorCooldownSeconds'],
   videoResultAuthCacheTTL: ['videoResultAuthCacheTTL'],

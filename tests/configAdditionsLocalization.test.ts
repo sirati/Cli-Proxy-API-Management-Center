@@ -3,6 +3,7 @@ import { CONFIG_FIELD_SEARCH_INDEX } from '@/features/config/searchIndex';
 
 const addedFieldIds = [
   'routingSessionAffinitySubagents',
+  'routingClaudeWeeklyResetFirst',
   'saveCooldownStatus',
   'transientErrorCooldownSeconds',
   'videoResultAuthCacheTTL',
