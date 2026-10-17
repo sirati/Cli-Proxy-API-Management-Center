@@ -39,7 +39,11 @@ type AuthFileHeadersErrorKey =
 type AuthFileContentErrorKey =
   'auth_files.prefix_proxy_invalid_json' | 'auth_files.prefix_proxy_html_challenge';
 type AuthFileWeightErrorKey = 'auth_files.weight_invalid_integer' | 'auth_files.weight_invalid_max';
-type AuthFileEditorErrorKey = AuthFileHeadersErrorKey | AuthFileWeightErrorKey;
+type AuthFileMinRemainingErrorKey = 'auth_files.min_remaining_invalid';
+type AuthFileEditorErrorKey =
+  | AuthFileHeadersErrorKey
+  | AuthFileWeightErrorKey
+  | AuthFileMinRemainingErrorKey;
 
 export type PrefixProxyEditorField =
   | CredentialPolicyField
@@ -47,6 +51,8 @@ export type PrefixProxyEditorField =
   | 'proxyUrl'
   | 'priority'
   | 'weight'
+  | 'minRemaining'
+  | 'useOnce'
   | 'disableCooling'
   | 'websockets'
   | 'usingApi'
@@ -73,6 +79,10 @@ export type PrefixProxyEditorState = {
   priority: string;
   weight: string;
   weightError: string | null;
+  minRemaining: string;
+  minRemainingError: string | null;
+  useOnce: boolean;
+  useOnceTouched: boolean;
   disableCooling: boolean;
   disableCoolingTouched: boolean;
   websockets: boolean;
@@ -282,6 +292,20 @@ const applyHeadersPatch = (
   }
 };
 
+// min_remaining and use_once drive the backend usage guard (Claude only): percent of
+// the weekly window to keep unused, and retire after one use.
+const readMinRemaining = (value: unknown): number => {
+  const parsed = typeof value === 'string' ? Number(value) : value;
+  return typeof parsed === 'number' && Number.isFinite(parsed) && parsed > 0 ? parsed : 0;
+};
+
+const parseMinRemainingText = (text: string): number | null => {
+  const trimmed = text.trim();
+  if (!trimmed) return 0;
+  const parsed = Number(trimmed);
+  return Number.isFinite(parsed) && parsed >= 0 && parsed <= 100 ? parsed : null;
+};
+
 export const buildAuthFileFieldsPatch = (
   editor: PrefixProxyEditorState,
   resolveError: (key: AuthFileEditorErrorKey) => string
@@ -328,6 +352,21 @@ export const buildAuthFileFieldsPatch = (
     if (originalWeight !== undefined) patch.weight = null;
   } else if (nextWeight !== originalWeight) {
     patch.weight = nextWeight;
+  }
+
+  if (editor.providerKey === 'claude') {
+    const nextMinRemaining = parseMinRemainingText(editor.minRemaining);
+    if (nextMinRemaining === null) {
+      throw new Error(resolveError('auth_files.min_remaining_invalid'));
+    }
+    if (nextMinRemaining !== readMinRemaining(original.min_remaining)) {
+      patch.min_remaining = nextMinRemaining;
+    }
+    if (editor.useOnceTouched && editor.useOnce !== (original.use_once === true)) {
+      patch.use_once = editor.useOnce;
+      // Turning use_once on measures usage from the next check, not an old baseline.
+      if (editor.useOnce) patch.use_once_baseline = null;
+    }
   }
 
   if (editor.disableCoolingTouched) {
@@ -430,6 +469,20 @@ const buildPrefixProxyUpdatedText = (
     }
   }
 
+  if (patch.min_remaining !== undefined) {
+    if (patch.min_remaining === 0) {
+      delete next.min_remaining;
+    } else {
+      next.min_remaining = patch.min_remaining;
+    }
+  }
+  if (patch.use_once !== undefined) {
+    next.use_once = patch.use_once;
+  }
+  if (patch.use_once_baseline === null) {
+    delete next.use_once_baseline;
+  }
+
   if (patch.disable_cooling !== undefined) {
     next.disable_cooling = patch.disable_cooling;
   }
@@ -480,6 +533,7 @@ export function useAuthFilesPrefixProxyEditor(
   const hasBlockingValidationError = Boolean(
     (prefixProxyEditor?.headersTouched && prefixProxyEditor.headersError) ||
     prefixProxyEditor?.weightError ||
+    prefixProxyEditor?.minRemainingError ||
     credentialPolicyError(prefixProxyEditor?.policy)
   );
   const prefixProxyUpdatedText =
@@ -531,6 +585,10 @@ export function useAuthFilesPrefixProxyEditor(
       priority: '',
       weight: '',
       weightError: null,
+      minRemaining: '',
+      minRemainingError: null,
+      useOnce: false,
+      useOnceTouched: false,
       disableCooling: false,
       disableCoolingTouched: false,
       websockets: false,
@@ -617,6 +675,12 @@ export function useAuthFilesPrefixProxyEditor(
           priority: priority !== undefined ? String(priority) : '',
           weight: weight !== undefined ? String(weight) : '',
           weightError: null,
+          minRemaining: readMinRemaining(json.min_remaining)
+            ? String(readMinRemaining(json.min_remaining))
+            : '',
+          minRemainingError: null,
+          useOnce: json.use_once === true,
+          useOnceTouched: false,
           disableCooling,
           disableCoolingTouched: false,
           websockets,
@@ -685,6 +749,20 @@ export function useAuthFilesPrefixProxyEditor(
       }
       if (field === 'usingApi') {
         return { ...prev, usingApi: Boolean(value), usingApiTouched: true };
+      }
+      if (field === 'minRemaining') {
+        const minRemaining = String(value);
+        return {
+          ...prev,
+          minRemaining,
+          minRemainingError:
+            parseMinRemainingText(minRemaining) === null
+              ? t('auth_files.min_remaining_invalid')
+              : null,
+        };
+      }
+      if (field === 'useOnce') {
+        return { ...prev, useOnce: Boolean(value), useOnceTouched: true };
       }
       if (field === 'note') return { ...prev, note: String(value), noteTouched: true };
       if (field === 'excludedModelsText') {

@@ -156,6 +156,7 @@ export function AuthFileDetailsSheet(props: AuthFileDetailsSheetProps) {
               !editor?.json ||
               Boolean(editor?.headersTouched && editor.headersError) ||
               Boolean(editor?.weightError) ||
+              Boolean(editor?.minRemainingError) ||
               Boolean(credentialPolicyError(editor?.policy))
             }
           >
@@ -248,6 +249,33 @@ export function AuthFileDetailsSheet(props: AuthFileDetailsSheetProps) {
                     />
                     <div className="hint">{t('auth_files.disable_cooling_hint')}</div>
                   </div>
+                  {editor.providerKey === 'claude' && (
+                    <>
+                      <Input
+                        label={t('auth_files.min_remaining_label')}
+                        type="number"
+                        min={0}
+                        max={100}
+                        step="1"
+                        value={editor.minRemaining}
+                        placeholder="0"
+                        hint={t('auth_files.min_remaining_hint')}
+                        error={editor.minRemainingError ?? undefined}
+                        disabled={disableControls || editor.saving || !editor.json}
+                        onChange={(e) => onChange('minRemaining', e.target.value)}
+                      />
+                      <div className="form-group">
+                        <label>{t('auth_files.use_once_label')}</label>
+                        <ToggleSwitch
+                          checked={editor.useOnce}
+                          onChange={(value) => onChange('useOnce', value)}
+                          disabled={disableControls || editor.saving || !editor.json}
+                          ariaLabel={t('auth_files.use_once_label')}
+                        />
+                        <div className="hint">{t('auth_files.use_once_hint')}</div>
+                      </div>
+                    </>
+                  )}
                   {supportsAuthFileWebsockets(editor.providerKey) && (
                     <div className="form-group">
                       <label>{t('auth_files.websockets_label')}</label>
