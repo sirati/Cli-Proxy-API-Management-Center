@@ -21,6 +21,7 @@ import {
   readAuthFileDisableCooling,
   readAuthFileWebsockets,
   readAuthFileUsingApi,
+  supportsAuthFileUsageGuard,
   supportsAuthFileWebsockets,
   supportsAuthFileUsingApi,
 } from '@/features/authFiles/constants';
@@ -292,7 +293,7 @@ const applyHeadersPatch = (
   }
 };
 
-// min_remaining and use_once drive the backend usage guard (Claude only): percent of
+// min_remaining and use_once drive the backend usage guard (Claude and Codex): percent of
 // the weekly window to keep unused, and retire after one use.
 const readMinRemaining = (value: unknown): number => {
   const parsed = typeof value === 'string' ? Number(value) : value;
@@ -354,7 +355,7 @@ export const buildAuthFileFieldsPatch = (
     patch.weight = nextWeight;
   }
 
-  if (editor.providerKey === 'claude') {
+  if (supportsAuthFileUsageGuard(editor.providerKey)) {
     const nextMinRemaining = parseMinRemainingText(editor.minRemaining);
     if (nextMinRemaining === null) {
       throw new Error(resolveError('auth_files.min_remaining_invalid'));

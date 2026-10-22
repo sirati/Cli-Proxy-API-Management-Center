@@ -14,6 +14,7 @@ import type {
 } from '@/features/authFiles/hooks/useAuthFilesPrefixProxyEditor';
 import {
   supportsAuthFileUsingApi,
+  supportsAuthFileUsageGuard,
   supportsAuthFileWebsockets,
 } from '@/features/authFiles/constants';
 import { MAX_CREDENTIAL_WEIGHT } from '@/utils/credentialWeight';
@@ -249,7 +250,7 @@ export function AuthFileDetailsSheet(props: AuthFileDetailsSheetProps) {
                     />
                     <div className="hint">{t('auth_files.disable_cooling_hint')}</div>
                   </div>
-                  {editor.providerKey === 'claude' && (
+                  {supportsAuthFileUsageGuard(editor.providerKey) && (
                     <>
                       <Input
                         label={t('auth_files.min_remaining_label')}

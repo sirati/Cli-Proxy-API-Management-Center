@@ -80,10 +80,19 @@ describe('auth-file usage guard fields', () => {
     ).toEqual({ use_once: false });
   });
 
-  test('other providers never send the Claude-only fields', () => {
+  test('codex sends the fields like claude', () => {
     expect(
       buildAuthFileFieldsPatch(
         makeEditor({}, { minRemaining: '20', useOnce: true, useOnceTouched: true }, 'codex'),
+        resolveError
+      )
+    ).toEqual({ min_remaining: 20, use_once: true, use_once_baseline: null });
+  });
+
+  test('providers without a usage endpoint never send the fields', () => {
+    expect(
+      buildAuthFileFieldsPatch(
+        makeEditor({}, { minRemaining: '20', useOnce: true, useOnceTouched: true }, 'gemini'),
         resolveError
       )
     ).toEqual({});

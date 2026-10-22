@@ -286,3 +286,9 @@ export const isModelExcluded = (
     return pattern.toLowerCase() === modelId.toLowerCase();
   });
 };
+
+// Providers whose weekly usage the backend usage guard can read (min_remaining, use_once).
+const AUTH_FILE_USAGE_GUARD_PROVIDERS = new Set(['claude', 'codex']);
+
+export const supportsAuthFileUsageGuard = (providerKey: string): boolean =>
+  AUTH_FILE_USAGE_GUARD_PROVIDERS.has(normalizeProviderKey(providerKey));
