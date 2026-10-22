@@ -21,6 +21,8 @@ import {
   readAuthFileDisableCooling,
   readAuthFileWebsockets,
   readAuthFileUsingApi,
+  readAuthFileUseSiwc,
+  supportsAuthFileSiwc,
   supportsAuthFileUsageGuard,
   supportsAuthFileWebsockets,
   supportsAuthFileUsingApi,
@@ -57,6 +59,7 @@ export type PrefixProxyEditorField =
   | 'disableCooling'
   | 'websockets'
   | 'usingApi'
+  | 'useSiwc'
   | 'note'
   | 'excludedModelsText'
   | 'headersText';
@@ -88,6 +91,8 @@ export type PrefixProxyEditorState = {
   disableCoolingTouched: boolean;
   websockets: boolean;
   websocketsTouched: boolean;
+  useSiwc: boolean;
+  useSiwcTouched: boolean;
   usingApi: boolean;
   usingApiTouched: boolean;
   note: string;
@@ -356,7 +361,7 @@ export const buildAuthFileFieldsPatch = (
   }
 
   if (supportsAuthFileUsageGuard(editor.providerKey)) {
-    const nextMinRemaining = parseMinRemainingText(editor.minRemaining);
+    const nextMinRemaining = parseMinRemainingText(editor.minRemaining ?? '');
     if (nextMinRemaining === null) {
       throw new Error(resolveError('auth_files.min_remaining_invalid'));
     }
@@ -411,6 +416,12 @@ export const buildAuthFileFieldsPatch = (
     const nextUsingApi = Boolean(editor.usingApi);
     if (nextUsingApi !== originalUsingApi) {
       patch.using_api = nextUsingApi;
+    }
+  }
+
+  if (supportsAuthFileSiwc(editor.providerKey) && editor.useSiwcTouched) {
+    if (editor.useSiwc !== readAuthFileUseSiwc(original)) {
+      patch.use_siwc = editor.useSiwc;
     }
   }
 
@@ -517,6 +528,10 @@ const buildPrefixProxyUpdatedText = (
     next = applyAuthFileUsingApi(next, patch.using_api);
   }
 
+  if (patch.use_siwc !== undefined) {
+    next.use_siwc = patch.use_siwc;
+  }
+
   return JSON.stringify(next);
 };
 
@@ -594,6 +609,8 @@ export function useAuthFilesPrefixProxyEditor(
       disableCoolingTouched: false,
       websockets: false,
       websocketsTouched: false,
+      useSiwc: false,
+      useSiwcTouched: false,
       usingApi: false,
       usingApiTouched: false,
       note: '',
@@ -686,6 +703,8 @@ export function useAuthFilesPrefixProxyEditor(
           disableCoolingTouched: false,
           websockets,
           websocketsTouched: false,
+          useSiwc: supportsAuthFileSiwc(providerKey) && readAuthFileUseSiwc(json),
+          useSiwcTouched: false,
           usingApi,
           usingApiTouched: false,
           note,
@@ -747,6 +766,9 @@ export function useAuthFilesPrefixProxyEditor(
       }
       if (field === 'websockets') {
         return { ...prev, websockets: Boolean(value), websocketsTouched: true };
+      }
+      if (field === 'useSiwc') {
+        return { ...prev, useSiwc: Boolean(value), useSiwcTouched: true };
       }
       if (field === 'usingApi') {
         return { ...prev, usingApi: Boolean(value), usingApiTouched: true };
