@@ -40,7 +40,7 @@ let
 
     outputHash =
       {
-        x86_64-linux = "sha256-nWSkmranFOHxG2CvZyaCfpwAFXau/Tu6SEf08K1PPxY=";
+        x86_64-linux = "sha256-8rStX4P5EfxfOYTRw0iic99Lool/s3WfP0avgPJtgnQ=";
       }
       .${stdenvNoCC.hostPlatform.system}
         or (throw "${pname}: no node_modules hash for ${stdenvNoCC.hostPlatform.system}");
