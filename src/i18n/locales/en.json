@@ -393,7 +393,7 @@
     "min_remaining_hint": "Claude and Codex only. Checked every 5 minutes; while less than this share of the weekly window is left, the credential is not used. 0 or empty turns it off.",
     "min_remaining_invalid": "Enter a percentage from 0 to 100",
     "use_once_label": "Use once",
-    "use_once_hint": "Claude and Codex only. Disables the credential for good (the login is kept) once its weekly window is empty, below the minimum remainder, or more than 5 points above the usage when this was turned on. Re-enable it to start over.",
+    "use_once_hint": "Claude and Codex only. Uses up the current weekly window, then disables the credential for good (the login is kept): when the window is empty, below the minimum remainder, or has reset. Re-enable it to start over.",
     "weight_tooltip": "Defaults to 1. Values at or below 0 exclude this credential from weighted scheduling; maximum 1,000,000. After entering a value, enable weighted round robin for it to take effect.",
     "weight_hint": "Defaults to 1. Values at or below 0 exclude this credential from weighted scheduling; maximum 1,000,000. After entering a value, enable <settingsLink>weighted round robin</settingsLink> for it to take effect.",
     "weight_invalid_integer": "Weight must be an integer.",

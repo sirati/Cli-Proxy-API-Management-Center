@@ -345,7 +345,7 @@
     "min_remaining_hint": "Chỉ Claude và Codex. Kiểm tra mỗi 5 phút; khi phần còn lại của cửa sổ tuần thấp hơn tỷ lệ này, thông tin xác thực không được dùng. 0 hoặc để trống là tắt.",
     "min_remaining_invalid": "Nhập phần trăm từ 0 đến 100",
     "use_once_label": "Dùng một lần",
-    "use_once_hint": "Chỉ Claude và Codex. Tắt vĩnh viễn thông tin xác thực (giữ đăng nhập) khi cửa sổ tuần đã hết, dưới mức tối thiểu, hoặc mức dùng tăng hơn 5 điểm so với lúc bật. Bật lại để bắt đầu lại.",
+    "use_once_hint": "Chá» Claude vÃ  Codex. DÃ¹ng háº¿t cá»­a sá» tuáº§n hiá»n táº¡i rá»i táº¯t vÄ©nh viá»n thÃ´ng tin xÃ¡c thá»±c (giá»¯ ÄÄng nháº­p): khi cá»­a sá» tuáº§n ÄÃ£ háº¿t, dÆ°á»i má»©c tá»i thiá»u, hoáº·c ÄÃ£ ÄÆ°á»£c Äáº·t láº¡i. Báº­t láº¡i Äá» báº¯t Äáº§u láº¡i.",
     "weight_hint": "Mặc định là 1. Giá trị ≤ 0 sẽ loại credential này khỏi điều phối có trọng số; tối đa 1.000.000.",
     "weight_invalid_integer": "Trọng số phải là số nguyên.",
     "weight_invalid_max": "Trọng số không được vượt quá 1.000.000.",

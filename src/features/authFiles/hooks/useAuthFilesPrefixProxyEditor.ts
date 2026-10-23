@@ -299,7 +299,7 @@ const applyHeadersPatch = (
 };
 
 // min_remaining and use_once drive the backend usage guard (Claude and Codex): percent of
-// the weekly window to keep unused, and retire after one use.
+// the weekly window to keep unused, and retire once the window resets.
 const readMinRemaining = (value: unknown): number => {
   const parsed = typeof value === 'string' ? Number(value) : value;
   return typeof parsed === 'number' && Number.isFinite(parsed) && parsed > 0 ? parsed : 0;
