@@ -42,7 +42,7 @@ export type AuthFileFieldsPatch = {
   weight?: number | null;
   min_remaining?: number;
   use_once?: boolean;
-  use_once_baseline?: null;
+  use_once_last_remaining?: null;
   disable_cooling?: boolean;
   'disable-cooling'?: boolean;
   websockets?: boolean;

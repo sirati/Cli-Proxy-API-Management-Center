@@ -370,8 +370,8 @@ export const buildAuthFileFieldsPatch = (
     }
     if (editor.useOnceTouched && editor.useOnce !== (original.use_once === true)) {
       patch.use_once = editor.useOnce;
-      // Turning use_once on measures usage from the next check, not an old baseline.
-      if (editor.useOnce) patch.use_once_baseline = null;
+      // Turning use_once on compares from the next check, not an old reading.
+      if (editor.useOnce) patch.use_once_last_remaining = null;
     }
   }
 
@@ -491,7 +491,8 @@ const buildPrefixProxyUpdatedText = (
   if (patch.use_once !== undefined) {
     next.use_once = patch.use_once;
   }
-  if (patch.use_once_baseline === null) {
+  if (patch.use_once_last_remaining === null) {
+    delete next.use_once_last_remaining;
     delete next.use_once_baseline;
   }
 
