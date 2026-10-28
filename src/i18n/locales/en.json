@@ -445,8 +445,7 @@
     "quota_refresh_hint": "Refresh quota only for this credential",
     "quota_refresh_success": "Quota refreshed for \"{{name}}\"",
     "quota_refresh_failed": "Failed to refresh quota for \"{{name}}\": {{message}}",
-    "use_once_active": "Currently use once is active",
-    "use_once_active_percent": "{{percent}}%"
+    "use_once_active": "Using once to {{percent}}%"
   },
   "antigravity_subscription": {
     "plan_unknown": "Unknown",

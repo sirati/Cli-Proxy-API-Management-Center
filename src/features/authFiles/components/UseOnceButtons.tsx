@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/Button';
+import styles from './AuthFileCard.module.scss';
 
 export function UseOnceButtons({
   minRemaining,
@@ -18,8 +19,9 @@ export function UseOnceButtons({
   if (!routingStopped) {
     return (
       <>
-        <span>{t('auth_files.use_once_active')}</span>
-        <span>{t('auth_files.use_once_active_percent', { percent: minRemaining })}</span>
+        <span className={styles.useOnceBadge}>
+          {t('auth_files.use_once_active', { percent: minRemaining })}
+        </span>
       </>
     );
   }

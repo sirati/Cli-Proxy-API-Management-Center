@@ -51,8 +51,7 @@ describe('use once credential actions', () => {
   test('shows compact active labels without activation buttons while running', async () => {
     await i18n.changeLanguage('en');
     const html = render(25, false);
-    expect(html).toContain('Currently use once is active');
-    expect(html).toContain('25%');
+    expect(html).toContain('Using once to 25%');
     expect(html).not.toContain('<button');
     expect(html).not.toContain('Use once to');
   });

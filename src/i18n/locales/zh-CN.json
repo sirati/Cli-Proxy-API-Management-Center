@@ -443,8 +443,7 @@
     "quota_refresh_hint": "仅刷新该认证文件的额度",
     "quota_refresh_success": "已刷新 \"{{name}}\" 的额度",
     "quota_refresh_failed": "刷新 \"{{name}}\" 的额度失败：{{message}}",
-    "use_once_active": "当前已启用一次性使用",
-    "use_once_active_percent": "剩余 {{percent}}%"
+    "use_once_active": "使用一次至剩余 {{percent}}%"
   },
   "antigravity_subscription": {
     "plan_unknown": "未知",

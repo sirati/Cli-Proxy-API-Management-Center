@@ -448,8 +448,7 @@
     "quota_refresh_hint": "Обновить квоту только для этих учётных данных",
     "quota_refresh_success": "Квота для \"{{name}}\" обновлена",
     "quota_refresh_failed": "Не удалось обновить квоту для \"{{name}}\": {{message}}",
-    "use_once_active": "Одноразовое использование активно",
-    "use_once_active_percent": "Остаток: {{percent}}%"
+    "use_once_active": "Используется один раз до {{percent}}%"
   },
   "antigravity_subscription": {
     "plan_unknown": "Неизвестно",
