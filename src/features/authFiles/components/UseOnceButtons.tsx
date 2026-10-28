@@ -15,6 +15,15 @@ export function UseOnceButtons({
   onStart: (target: number) => void;
 }) {
   const { t } = useTranslation();
+  if (!routingStopped) {
+    return (
+      <>
+        <span>{t('auth_files.use_once_active')}</span>
+        <span>{t('auth_files.use_once_active_percent', { percent: minRemaining })}</span>
+      </>
+    );
+  }
+
   return (
     <>
       <span>

@@ -444,7 +444,9 @@
     "quota_refresh_single": "할당량 새로 고침",
     "quota_refresh_hint": "이 자격 증명의 할당량만 새로 고침합니다",
     "quota_refresh_success": "\"{{name}}\"의 할당량을 새로 고쳤습니다",
-    "quota_refresh_failed": "\"{{name}}\"의 할당량 새로 고침 실패: {{message}}"
+    "quota_refresh_failed": "\"{{name}}\"의 할당량 새로 고침 실패: {{message}}",
+    "use_once_active": "현재 일회성 사용 활성화됨",
+    "use_once_active_percent": "잔여 {{percent}}%"
   },
   "antigravity_subscription": {
     "plan_unknown": "알 수 없음",

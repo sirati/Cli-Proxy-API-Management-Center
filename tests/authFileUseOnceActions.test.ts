@@ -6,11 +6,11 @@ import { UseOnceButtons } from '../src/features/authFiles/components/UseOnceButt
 import { authFilesApi, normalizeAuthFilesResponse } from '../src/services/api/authFiles';
 import { apiClient } from '../src/services/api/client';
 
-const render = (minRemaining: number) =>
+const render = (minRemaining: number, routingStopped = true) =>
   renderToStaticMarkup(
     createElement(UseOnceButtons, {
       minRemaining,
-      routingStopped: true,
+      routingStopped,
       disabled: false,
       onStart() {},
     })
@@ -46,6 +46,15 @@ describe('use once credential actions', () => {
     expect(zero).toContain('>Use once</span>');
     expect(zero).not.toContain('Use once to');
     expect(zero).not.toContain('role="switch"');
+  });
+
+  test('shows compact active labels without activation buttons while running', async () => {
+    await i18n.changeLanguage('en');
+    const html = render(25, false);
+    expect(html).toContain('Currently use once is active');
+    expect(html).toContain('25%');
+    expect(html).not.toContain('<button');
+    expect(html).not.toContain('Use once to');
   });
 
   test('posts the selected target and identity without changing the saved minimum', async () => {
