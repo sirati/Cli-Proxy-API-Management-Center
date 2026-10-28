@@ -291,6 +291,11 @@ const normalizeAuthFileEntry = (
 
   return {
     ...entry,
+    useOnce: readBooleanField(entry.use_once) === true,
+    minRemaining: Number.isFinite(Number(entry.min_remaining))
+      ? Math.min(100, Math.max(0, Number(entry.min_remaining)))
+      : 0,
+    routingStopped: entry.routing_stopped === true,
     siwcBindSupported: entry.siwc_bind_supported === true,
     useSiwc: entry.use_siwc === true,
     siwcBound: entry.siwc_bound === true,
@@ -553,6 +558,13 @@ export const authFilesApi = {
         lookup ? { params: { name: lookup.name, auth_index: lookup.authIndex } } : undefined
       )
     ),
+
+  startUseOnce: (name: string, target?: number, authIndex?: string) =>
+    apiClient.post<AuthFileStatusResponse>('/credentials/use-once', {
+      name,
+      ...(target !== undefined ? { target } : {}),
+      ...(authIndex ? { auth_index: authIndex } : {}),
+    }),
 
   setStatus: (name: string, disabled: boolean, authIndex?: string) =>
     apiClient.patch<AuthFileStatusResponse>('/credentials/status', {

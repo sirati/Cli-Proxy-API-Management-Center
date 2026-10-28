@@ -390,8 +390,12 @@
     "min_remaining_label": "每週最低剩餘額度 (%)",
     "min_remaining_hint": "僅限 Claude 和 Codex。每 5 分鐘檢查一次；每週額度剩餘低於此比例時不使用該憑證。0 或留空表示關閉。",
     "min_remaining_invalid": "請輸入 0 到 100 之間的百分比",
+    "use_once_to": "使用一次至剩餘 {{percent}}%",
+    "routing_active": "已啟用",
+    "credential_disabled": "已停用",
+    "routing_stopped": "已啟用，路由已停止",
     "use_once_label": "一次性使用",
-    "use_once_hint": "åé Claude å Codexãç¨å®æ¬é±é¡åº¦å¾æ°¸ä¹åç¨è©²æè­ï¼ä¿çç»å¥ï¼ï¼æ¯é±é¡åº¦ç¨ç¡ãä½æ¼æä½å©é¤é¡åº¦ï¼ææ¯é±é¡åº¦å·²éç½®æãéæ°åç¨å³å¯éæ°éå§ã",
+    "use_once_hint": "僅限 Claude 和 Codex。目前每週額度達到目標剩餘比例或重設時停止請求路由。憑證保持啟用，可更新並檢查用量。使用卡片按鈕開始新一輪。",
     "weight_tooltip": "預設值為 1；小於或等於 0 時不參與加權調度；最大值為 1,000,000。填入後開啟加權輪詢設定即可生效。",
     "weight_hint": "預設值為 1；小於或等於 0 時不參與加權調度；最大值為 1,000,000。填入後開啟<settingsLink>加權輪詢設定</settingsLink>即可生效。",
     "weight_invalid_integer": "權重必須是整數。",

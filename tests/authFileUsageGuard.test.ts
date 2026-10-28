@@ -71,7 +71,7 @@ describe('auth-file usage guard fields', () => {
         makeEditor({ use_once_baseline: 40 }, { useOnce: true, useOnceTouched: true }),
         resolveError
       )
-    ).toEqual({ use_once: true, use_once_baseline: null });
+    ).toEqual({ use_once: true, use_once_last_remaining: null });
     expect(
       buildAuthFileFieldsPatch(
         makeEditor({ use_once: true }, { useOnce: false, useOnceTouched: true }),
@@ -86,7 +86,7 @@ describe('auth-file usage guard fields', () => {
         makeEditor({}, { minRemaining: '20', useOnce: true, useOnceTouched: true }, 'codex'),
         resolveError
       )
-    ).toEqual({ min_remaining: 20, use_once: true, use_once_baseline: null });
+    ).toEqual({ min_remaining: 20, use_once: true, use_once_last_remaining: null });
   });
 
   test('providers without a usage endpoint never send the fields', () => {

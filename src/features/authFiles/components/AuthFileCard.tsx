@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/Button';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 import { SelectionCheckbox } from '@/components/ui/SelectionCheckbox';
+import { UseOnceButtons } from './UseOnceButtons';
 import { ToggleSwitch } from '@/components/ui/ToggleSwitch';
 import {
   IconDownload,
@@ -58,7 +59,7 @@ export type AuthFileCardProps = {
   onCooldownReset: (file: AuthFileItem) => void;
   onOpenPrefixProxyEditor: (file: AuthFileItem) => void;
   onDelete: (name: string) => void;
-  onToggleStatus: (file: AuthFileItem, enabled: boolean) => void;
+  onToggleStatus: (file: AuthFileItem, enabled: boolean, useOnceTarget?: number) => void;
   onToggleSelect: (name: string) => void;
 };
 
@@ -334,17 +335,33 @@ export function AuthFileCard(props: AuthFileCardProps) {
         </div>
         {!isRuntimeOnly && (
           <div className={styles.toggleWrap}>
-            <span className={styles.toggleLabel}>{t('auth_files.status_toggle_label')}</span>
-            <ToggleSwitch
-              ariaLabel={t('auth_files.card_toggle', { name: file.name })}
-              checked={!file.disabled}
-              disabled={
-                disableControls ||
-                statusUpdating[getAuthFileRefreshKey(file)] === true ||
-                isManualRefreshing
-              }
-              onChange={(value) => onToggleStatus(file, value)}
-            />
+            {file.useOnce ? (
+              <UseOnceButtons
+                minRemaining={file.minRemaining ?? 0}
+                credentialDisabled={file.disabled === true}
+                routingStopped={file.routingStopped === true}
+                disabled={
+                  disableControls ||
+                  statusUpdating[getAuthFileRefreshKey(file)] === true ||
+                  isManualRefreshing
+                }
+                onStart={(target) => onToggleStatus(file, true, target)}
+              />
+            ) : (
+              <>
+                <span className={styles.toggleLabel}>{t('auth_files.status_toggle_label')}</span>
+                <ToggleSwitch
+                  ariaLabel={t('auth_files.card_toggle', { name: file.name })}
+                  checked={!file.disabled}
+                  disabled={
+                    disableControls ||
+                    statusUpdating[getAuthFileRefreshKey(file)] === true ||
+                    isManualRefreshing
+                  }
+                  onChange={(value) => onToggleStatus(file, value)}
+                />
+              </>
+            )}
           </div>
         )}
       </footer>

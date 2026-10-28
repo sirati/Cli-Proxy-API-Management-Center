@@ -65,7 +65,11 @@ export type UseAuthFilesDataResult = {
   handleDownload: (name: string) => Promise<void>;
   handleManualRefresh: (item: AuthFileItem) => Promise<void>;
   handleCooldownReset: (item: AuthFileItem) => void;
-  handleStatusToggle: (item: AuthFileItem, enabled: boolean) => Promise<void>;
+  handleStatusToggle: (
+    item: AuthFileItem,
+    enabled: boolean,
+    useOnceTarget?: number
+  ) => Promise<void>;
   toggleSelect: (name: string) => void;
   selectAllVisible: (visibleFiles: AuthFileItem[]) => void;
   invertVisibleSelection: (visibleFiles: AuthFileItem[]) => void;
@@ -676,7 +680,7 @@ export function useAuthFilesData(options?: UseAuthFilesDataOptions): UseAuthFile
   );
 
   const handleStatusToggle = useCallback(
-    async (item: AuthFileItem, enabled: boolean) => {
+    async (item: AuthFileItem, enabled: boolean, useOnceTarget?: number) => {
       const revision = apiClient.getConnectionRevision();
       if (statusPendingRef.current.revision !== revision) {
         statusPendingRef.current = { revision, keys: new Set() };
@@ -698,18 +702,24 @@ export function useAuthFilesData(options?: UseAuthFilesDataOptions): UseAuthFile
       );
 
       try {
-        const res = await authFilesApi.setStatus(
-          name,
-          nextDisabled,
-          String(item.authIndex ?? '').trim() || undefined
-        );
+        const authIndex = String(item.authIndex ?? '').trim() || undefined;
+        const res =
+          useOnceTarget !== undefined
+            ? await authFilesApi.startUseOnce(name, useOnceTarget, authIndex)
+            : await authFilesApi.setStatus(name, nextDisabled, authIndex);
         if (revision !== apiClient.getConnectionRevision()) return;
         invalidateInFlightLoads();
         setFiles((prev) =>
           revision !== apiClient.getConnectionRevision()
             ? prev
             : prev.map((f) =>
-                getAuthFileRefreshKey(f) === key ? { ...f, disabled: res.disabled } : f
+                getAuthFileRefreshKey(f) === key
+                  ? {
+                      ...f,
+                      disabled: res.disabled,
+                      ...(useOnceTarget !== undefined ? { routingStopped: false } : {}),
+                    }
+                  : f
               )
         );
         showNotification(
