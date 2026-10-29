@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/Button';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 import { SelectionCheckbox } from '@/components/ui/SelectionCheckbox';
+import { SubscriptionLapsedBadge } from './SubscriptionLapsedBadge';
 import { UseOnceButtons } from './UseOnceButtons';
 import { ToggleSwitch } from '@/components/ui/ToggleSwitch';
 import {
@@ -335,6 +336,7 @@ export function AuthFileCard(props: AuthFileCardProps) {
         </div>
         {!isRuntimeOnly && (
           <div className={styles.toggleWrap}>
+            {file.subscriptionLapsed === true && <SubscriptionLapsedBadge />}
             {file.useOnce ? (
               <UseOnceButtons
                 minRemaining={file.minRemaining ?? 0}

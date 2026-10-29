@@ -296,6 +296,7 @@ const normalizeAuthFileEntry = (
       ? Math.min(100, Math.max(0, Number(entry.min_remaining)))
       : 0,
     routingStopped: entry.routing_stopped === true,
+    subscriptionLapsed: entry.subscription_lapsed === true,
     siwcBindSupported: entry.siwc_bind_supported === true,
     useSiwc: entry.use_siwc === true,
     siwcBound: entry.siwc_bound === true,

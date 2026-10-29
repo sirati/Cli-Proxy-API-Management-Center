@@ -67,6 +67,8 @@ export interface AuthFileItem {
   useOnce?: boolean;
   minRemaining?: number;
   routingStopped?: boolean;
+  /** Claude subscription lapsed: enabled, but no requests are routed to it. */
+  subscriptionLapsed?: boolean;
   unavailable?: boolean;
   status?: string;
   statusMessage?: string;

@@ -448,7 +448,9 @@
     "quota_refresh_hint": "Обновить квоту только для этих учётных данных",
     "quota_refresh_success": "Квота для \"{{name}}\" обновлена",
     "quota_refresh_failed": "Не удалось обновить квоту для \"{{name}}\": {{message}}",
-    "use_once_active": "Используется один раз до {{percent}}%"
+    "use_once_active": "Используется один раз до {{percent}}%",
+    "subscription_lapsed": "Подписка истекла",
+    "subscription_lapsed_hint": "Запросы на этот аккаунт не направляются. Маршрутизация возобновится, когда проверка использования покажет, что подписка снова активна."
   },
   "antigravity_subscription": {
     "plan_unknown": "Неизвестно",

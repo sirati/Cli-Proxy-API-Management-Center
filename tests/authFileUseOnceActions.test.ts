@@ -2,6 +2,7 @@ import { describe, expect, spyOn, test } from 'bun:test';
 import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import i18n from '../src/i18n/index';
+import { SubscriptionLapsedBadge } from '../src/features/authFiles/components/SubscriptionLapsedBadge';
 import { UseOnceButtons } from '../src/features/authFiles/components/UseOnceButtons';
 import { authFilesApi, normalizeAuthFilesResponse } from '../src/services/api/authFiles';
 import { apiClient } from '../src/services/api/client';
@@ -54,6 +55,18 @@ describe('use once credential actions', () => {
     expect(html).toContain('Using once to 25%');
     expect(html).not.toContain('<button');
     expect(html).not.toContain('Use once to');
+  });
+
+  test('marks a lapsed subscription as enabled but not routed', async () => {
+    const file = normalizeAuthFilesResponse({
+      files: [{ name: 'lapsed.json', subscription_lapsed: true, disabled: false }],
+    }).files[0];
+    expect(file.subscriptionLapsed).toBe(true);
+    expect(file.disabled).toBe(false);
+    await i18n.changeLanguage('en');
+    const html = renderToStaticMarkup(createElement(SubscriptionLapsedBadge));
+    expect(html).toContain('Subscription lapsed');
+    expect(html).toContain('No requests are routed to this account.');
   });
 
   test('posts the selected target and identity without changing the saved minimum', async () => {

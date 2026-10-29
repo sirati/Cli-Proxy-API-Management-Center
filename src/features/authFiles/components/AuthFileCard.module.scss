@@ -490,7 +490,8 @@
   white-space: nowrap;
 }
 
-.useOnceBadge {
+.useOnceBadge,
+.lapsedBadge {
   display: inline-flex;
   align-items: center;
   min-height: 22px;
@@ -503,6 +504,12 @@
   font-weight: 500;
   line-height: 1.2;
   white-space: nowrap;
+}
+
+.lapsedBadge {
+  border-color: var(--warning-border);
+  background: var(--warning-bg);
+  color: var(--warning-text);
 }
 
 @include mobile {

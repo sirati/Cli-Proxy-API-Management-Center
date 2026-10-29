@@ -445,7 +445,9 @@
     "policy_retry_invalid": "Nhập một số nguyên an toàn không âm, hoặc chọn Kế thừa.",
     "policy_aliases_invalid": "Nhập tên model và bí danh không để trống cho mỗi hàng mới hoặc đã chỉnh sửa.",
     "policy_rules_invalid": "Hoàn thành mỗi quy tắc đã chỉnh sửa với mã trạng thái dương, một hành động và ít nhất một điều kiện khớp không để trống.",
-    "use_once_active": "Đang dùng một lần đến {{percent}}%"
+    "use_once_active": "Đang dùng một lần đến {{percent}}%",
+    "subscription_lapsed": "Gói đăng ký đã hết hạn",
+    "subscription_lapsed_hint": "Không có yêu cầu nào được định tuyến đến tài khoản này. Định tuyến sẽ tiếp tục khi lần kiểm tra mức sử dụng thấy gói đăng ký hoạt động trở lại."
   },
   "antigravity_subscription": {
     "plan_unknown": "Không rõ",

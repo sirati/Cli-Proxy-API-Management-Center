@@ -443,7 +443,9 @@
     "quota_refresh_hint": "僅重新整理該驗證檔案的配額",
     "quota_refresh_success": "已重新整理「{{name}}」的配額",
     "quota_refresh_failed": "重新整理「{{name}}」的配額失敗：{{message}}",
-    "use_once_active": "使用一次至剩餘 {{percent}}%"
+    "use_once_active": "使用一次至剩餘 {{percent}}%",
+    "subscription_lapsed": "訂閱已失效",
+    "subscription_lapsed_hint": "不會向此帳號路由任何請求。用量檢查確認訂閱恢復有效後，路由會自動恢復。"
   },
   "antigravity_subscription": {
     "plan_unknown": "未知",

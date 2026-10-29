@@ -445,7 +445,9 @@
     "quota_refresh_hint": "Refresh quota only for this credential",
     "quota_refresh_success": "Quota refreshed for \"{{name}}\"",
     "quota_refresh_failed": "Failed to refresh quota for \"{{name}}\": {{message}}",
-    "use_once_active": "Using once to {{percent}}%"
+    "use_once_active": "Using once to {{percent}}%",
+    "subscription_lapsed": "Subscription lapsed",
+    "subscription_lapsed_hint": "No requests are routed to this account. Routing resumes once a usage check finds the subscription active again."
   },
   "antigravity_subscription": {
     "plan_unknown": "Unknown",

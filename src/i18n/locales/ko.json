@@ -445,7 +445,9 @@
     "quota_refresh_hint": "이 자격 증명의 할당량만 새로 고침합니다",
     "quota_refresh_success": "\"{{name}}\"의 할당량을 새로 고쳤습니다",
     "quota_refresh_failed": "\"{{name}}\"의 할당량 새로 고침 실패: {{message}}",
-    "use_once_active": "잔여 {{percent}}%까지 한 번 사용 중"
+    "use_once_active": "잔여 {{percent}}%까지 한 번 사용 중",
+    "subscription_lapsed": "구독 만료",
+    "subscription_lapsed_hint": "이 계정으로는 요청이 라우팅되지 않습니다. 사용량 확인에서 구독이 다시 활성으로 확인되면 라우팅이 재개됩니다."
   },
   "antigravity_subscription": {
     "plan_unknown": "알 수 없음",
